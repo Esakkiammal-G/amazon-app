@@ -1,38 +1,515 @@
-.App {
-  text-align: center;
+/* General body styles */
+body {
+  font-family: 'Poppins', sans-serif; 
+  margin: 0;
+  padding: 0;
+  background-color: white; 
+  color: black; 
+  scroll-behavior: smooth; 
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.header {
+  background-color: white;
+  color: #dd8ea4;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+/* Navbar hidden class for mobile view */
+.navbar.hidden {
+  display: none; /* Hide the navbar on mobile view when the menu is not open */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Header h1 styles */
+.header h1 {
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  margin: 0;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Navigation styles */
+.header nav {
+  display: flex;
+  margin-right: 100px;
+}
+
+/* Style for navigation links */
+.header nav a {
+  margin: 0 1rem;
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.header nav a:hover {
+  color: #dd8ea4;
+}
+
+/* Toggle button for mobile */
+.toggle-button {
+  display: none; /* Hidden on larger screens */
+  font-size: 2rem;
+  cursor: pointer;
+  margin-left: auto;
+  color: black;
+}
+
+/* Media Queries for Header responsiveness */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Adjust the header layout for smaller screens */
+    align-items: flex-start;
+  }
+
+  .toggle-button {
+    display: block; /* Show the toggle button on small screens */
+    margin: 0;
+  }
+
+  .navbar {
+    display: none; /* Hide the navbar by default on small screens */
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar.active {
+    display: flex; /* Show navbar when it is active */
+    margin-top: 1rem;
+  }
+
+  .navbar a {
+    margin: 0.5rem 0;
+    text-align: center;
+    width: 100%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Always display the navbar on larger screens */
+@media (min-width: 769px) {
+  .toggle-button {
+    display: none; /* Hide the toggle button on larger screens */
+  }
+
+  .navbar {
+    display: flex; /* Show navbar on larger screens */
+    flex-direction: row;
+    width: auto; /* Don't restrict width on larger screens */
+  }
+}
+
+
+
+/* Add padding to body to prevent content from hiding behind the fixed header */
+body {
+  padding-top: 100px; /* Adjust this value based on your header's height */
+}
+
+
+/* About section styles */
+.about-section {
+  padding: 1rem; /* Decreased padding around the content */
+  background-color: #f2e9eb; 
+  border-radius: 10px; 
+  max-width: 800px; 
+  margin: 2rem auto; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.about-section h2 {
+  font-size: 2rem; 
+  margin-bottom: 1rem; 
+  text-align: center; 
+  color: #dd8ea4;
+}
+
+.about-section p {
+  font-size: 1.1rem; 
+  color: black; 
+  line-height: 1.6; 
+  text-align: justify; 
+}
+
+/* Responsive Styles for About Section */
+@media (max-width: 768px) {
+  .about-section {
+    padding: 0.5rem; /* Further decreased padding on small screens */
+    margin: 1rem; 
+  }
+
+  .about-section h2 {
+    font-size: 1.5rem; 
+  }
+
+  .about-section p {
+    font-size: 1rem; 
+  }
+}
+
+/* General section styles */
+section {
+  padding: 2rem; /* Decreased padding for all sections */
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease-in-out forwards;
+  background-color: #f2e9eb; 
+  margin: 1rem 0; 
+  border-radius: 1px; 
+}
+
+section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 0.1rem;
+  position: relative;
+  color: #dd8ea4;
+}
+
+section p,
+section ul {
+  font-size: 1.1rem;
+  color: black; 
+  line-height: 1.8;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+
+ul li::before {
+  content: '⭐';
+  margin-right: 10px;
+  color: #31383f; 
+  font-size: 1.0rem;
+  transition: transform 0.3s ease;
+}
+
+ul li:hover::before {
+  transform: rotate(360deg);
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  position: relative;
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #f2e9eb;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover::before {
+  visibility: visible;
+  width: 100%;
+}
+
+/* Projects Section Styles */
+.projects-section {
+  text-align: center;
+  margin: 40px 0;
+  background-color: #f2e9eb; 
+}
+
+.projects-title {
+  font-size: 2rem;
+  color: #dd8ea4; 
+  margin-bottom: 20px; 
+}
+
+.projects {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 20px; 
+}
+
+.project-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 45%; 
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Project Image Styles */
+.project-card img {
+  width: 100%; 
+  height: auto; 
+  object-fit: contain; 
+  border-radius: 8px;
+  transition: transform 0.3s ease; /* Added transition for smooth zoom effect */
+}
+
+/* Hover effect for project images */
+.project-card img:hover {
+  transform: scale(1.1); /* Zoom in effect */
+}
+
+/* Optional: Add a box shadow effect on hover */
+.project-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Slight shadow on project card hover */
+}
+
+.project-card h3 {
+  font-size: 1.2rem;
+  margin: 12px 0;
+}
+
+.project-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.project-card a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #dd8ea4;
   color: white;
+  text-decoration: none;
+  border-radius: 4px;
 }
 
-.App-link {
-  color: #61dafb;
+.project-card a:hover {
+  background-color: white;
+  color: #dd8ea4;
 }
 
-@keyframes App-logo-spin {
+
+/* Contact Section Styles */
+#contact {
+  background-color: #f2e9eb; 
+  color: black; 
+  padding: 1rem; /* Adjusted padding for contact section */
+}
+
+#contact p {
+  color: black; 
+}
+
+#contact a {
+  color: black; 
+}
+
+#contact a:hover {
+  color: #dd8ea4; 
+}
+
+/* Profile Section Styles */
+.profile-section {
+  display: flex; 
+  height: 50vh; 
+  background-color: #f2e9eb; 
+}
+
+.profile-container {
+  display: flex; 
+  width: 100%; 
+}
+
+.profile-image-container {
+  flex: 1; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.profile-image {
+  width: 300px; 
+  height: 300px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.profile-text {
+  flex: 1; 
+  padding: 2rem; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  text-align: justify;
+}
+
+.profile-text h2 {
+  font-size: 2rem; 
+  margin-bottom: 1rem; 
+  color: #dd8ea4;
+}
+
+.profile-text p {
+  font-size: 1.1rem; 
+  color: black; 
+  line-height: 1.6; 
+}
+
+/* Responsive Styles for Profile Section */
+@media (max-width: 768px) {
+  .profile-section {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem; /* Add padding for better spacing on mobile */
+  }
+
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Make sure the container takes full width */
+  }
+
+  .profile-image-container {
+    margin-bottom: 1rem;
+    width: 100%; /* Ensure the image container also takes full width */
+  }
+
+  .profile-image {
+    width: 100%; /* Use 100% of the container's width */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 300px; /* Add a max-width to prevent it from becoming too large */
+    object-fit: cover; /* Ensure the image is displayed properly */
+  }
+
+  .profile-text {
+    padding: 1.5rem; /* Increase padding for more readability */
+    text-align: center;
+    max-width: 600px; /* Limit text width to improve readability */
+  }
+
+  .profile-text h2 {
+    font-size: 2rem; /* Make the heading larger for better readability */
+    line-height: 1.2; /* Adjust line height for clarity */
+  }
+
+  .profile-text p {
+    font-size: 1.1rem; /* Increase font size for better readability */
+    line-height: 1.5; /* Improve line spacing */
+  }
+}
+
+
+/* Skills Section Styles */
+/* Skills Section Styles */
+#skills {
+  padding: 1rem; /* Decreased padding */
+  background-color: #f2e9eb;
+  border-radius: 10px;
+  padding-bottom: 50px; /* Keep bottom padding for layout */
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.skill-item {
+  background-color: white; /* Default background color */
+  border: 1px solid #ddd; 
+  color: black;
+  border-radius: 8px; 
+  margin: 10px; 
+  padding: 10px; 
+  text-align: center; 
+  width: calc(33.33% - 20px); /* Adjust width for 3 columns */
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* Add transition for color change */
+}
+
+/* Adjust for the last two items in the second row */
+.skill-item:nth-child(n+4) {
+  width: calc(50% - 20px); /* Adjust width for 2 columns */
+}
+
+/* .skill-item:hover {
+  transform: translateY(-5px); 
+  background-color: #; /* Change background color on hover */
+  /* color: #ffcc00; /* Change text color on hover */
+/* } */ */ */
+/* .skill-item p:hover {
+  transform: translateY(-5px); 
+  background-color: #001f3f; 
+  color:white; 
+} */
+.skill-item img {
+  width: 50px; 
+  height: 50px; 
+  margin-bottom: 5px; 
+}
+
+.skill-item h3 {
+  font-size: 1rem; 
+  margin: 0; 
+  color: #dd8ea4;
+}
+
+/* Responsive Styles for Skills Section */
+@media (max-width: 768px) {
+  .skill-item {
+    width: calc(50% - 20px); /* Change to 2 columns on smaller screens */
+  }
+
+  .skill-item:nth-child(n+4) {
+    width: calc(50% - 20px); /* Maintain 2 columns for additional items */
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-item {
+    width: calc(100% - 20px); /* Stack to 1 column on very small screens */
+  }
+}
+
+
+/* Footer Styles */
+footer {
+  text-align: center; 
+  padding: 1rem; 
+  background-color: #f2e9eb; 
+  color: white; 
+  position: relative; 
+}
+
+.footer-text {
+  margin: 0; 
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
