@@ -8,6 +8,7 @@ body {
   scroll-behavior: smooth; 
 }
 
+/* Header section animation */
 .header {
   background-color: white;
   color: #dd8ea4;
@@ -19,19 +20,33 @@ body {
   top: 0;
   width: 100%;
   z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-/* Navbar hidden class for mobile view */
-.navbar.hidden {
-  display: none; /* Hide the navbar on mobile view when the menu is not open */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Header h1 styles */
+/* Change background on scroll */
+.scrolled .header {
+  background-color: #dd8ea4; /* Background color on scroll */
+  color: white; /* Text color on scroll */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a shadow effect on scroll */
+}
+
+/* Animation for h1 */
 .header h1 {
   font-size: 2.5rem;
   letter-spacing: 1px;
   margin: 0;
   animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Navigation styles */
@@ -40,7 +55,7 @@ body {
   margin-right: 100px;
 }
 
-/* Style for navigation links */
+/* Smooth transition for navigation links */
 .header nav a {
   margin: 0 1rem;
   color: black;
@@ -49,39 +64,58 @@ body {
   transition: color 0.3s ease-in-out;
 }
 
+/* Hover effect with smooth transition */
 .header nav a:hover {
   color: #dd8ea4;
 }
 
 /* Toggle button for mobile */
 .toggle-button {
-  display: none; /* Hidden on larger screens */
+  display: none;
   font-size: 2rem;
   cursor: pointer;
   margin-left: auto;
   color: black;
 }
+/* Add a background and shadow when scrolled */
+.header.scrolled {
+  background: linear-gradient(to right,#e6a6c6 10%, #d483ac 50%, #c5558e 60%);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-/* Media Queries for Header responsiveness */
+/* Responsive animation */
 @media (max-width: 768px) {
   .header {
-    flex-direction: column; /* Adjust the header layout for smaller screens */
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: fixed;
+    padding: 1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .toggle-button {
-    display: block; /* Show the toggle button on small screens */
-    margin: 0;
+    display: block;
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    cursor: pointer;
+    color: black;
   }
 
   .navbar {
-    display: none; /* Hide the navbar by default on small screens */
+    display: none;
     flex-direction: column;
     width: 100%;
   }
 
   .navbar.active {
-    display: flex; /* Show navbar when it is active */
+    display: flex;
     margin-top: 1rem;
   }
 
@@ -92,24 +126,49 @@ body {
   }
 }
 
-/* Always display the navbar on larger screens */
-@media (min-width: 769px) {
-  .toggle-button {
-    display: none; /* Hide the toggle button on larger screens */
-  }
+* {
+  box-sizing: border-box;
+}
 
-  .navbar {
-    display: flex; /* Show navbar on larger screens */
-    flex-direction: row;
-    width: auto; /* Don't restrict width on larger screens */
-  }
+@font-face {
+  font-family: "ubuntu";
+  font-style: italic;
+  font-weight: 300;
+  src: local("Lato Light Italic"), local("Lato-LightItalic"),
+    url(https://fonts.gstatic.com/s/ubuntucondensed/v8/u-4k0rCzjgs5J7oXnJcM_0kACGMtT-Dfqw.woff2)
+      format("woff2");
 }
 
 
 
+
+  h2 {
+    color: #fff;
+    font-size: 92px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: "Josefin Sans", sans-serif;
+    background: linear-gradient(to right,#62021e 10%, #a42153 50%, #c5558e 60%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 1.5s linear infinite;
+    display: inline-block;
+  }
+
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
 /* Add padding to body to prevent content from hiding behind the fixed header */
 body {
-  padding-top: 100px; /* Adjust this value based on your header's height */
+  padding-top: 50px; /* Adjust this value based on your header's height */
 }
 
 
@@ -120,11 +179,20 @@ body {
   border-radius: 10px; 
   max-width: 800px; 
   margin: 2rem auto; 
+  color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  opacity: 0; /* Start with hidden */
+  transition: opacity 1s, transform 1s; /* Smooth transition for opacity and transform */
+  transform: translateX(-50px); /* Start position for slide left animation */
+}
+
+.slide-left-animation {
+  opacity: 1; /* Fade to visible */
+  transform: translateX(0); /* Slide to original position */
 }
 
 .about-section h2 {
-  font-size: 2rem; 
+  font-size: 1.8rem; 
   margin-bottom: 1rem; 
   text-align: center; 
   color: #dd8ea4;
@@ -135,6 +203,7 @@ body {
   color: black; 
   line-height: 1.6; 
   text-align: justify; 
+  font-size: 1rem;
 }
 
 /* Responsive Styles for About Section */
@@ -152,6 +221,7 @@ body {
     font-size: 1rem; 
   }
 }
+
 
 /* General section styles */
 section {
@@ -253,14 +323,16 @@ a:hover::before {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Project Image Styles */
+
+
 .project-card img {
   width: 100%; 
   height: auto; 
   object-fit: contain; 
   border-radius: 8px;
-  transition: transform 0.3s ease; /* Added transition for smooth zoom effect */
+  animation: jumpEffect 1s ease-in-out; /* Apply the jump animation */
 }
+
 
 /* Hover effect for project images */
 .project-card img:hover {
@@ -296,7 +368,36 @@ a:hover::before {
   background-color: white;
   color: #dd8ea4;
 }
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-card {
+    width: 90%; /* Full width on small screens */
+  }
+}
 
+@media (max-width: 480px) {
+  .projects-title {
+    font-size: 1.5rem; /* Reduce title size on extra small screens */
+  }
+
+  .project-card {
+    width: 100%; /* Full width on very small screens */
+    padding: 12px; /* Reduce padding for small screens */
+  }
+
+  .project-card h3 {
+    font-size: 1rem; /* Adjust font size */
+  }
+
+  .project-card p {
+    font-size: 0.9rem; /* Adjust paragraph font size */
+  }
+
+  .project-card a {
+    padding: 6px 12px; /* Adjust button size */
+    
+  }
+}
 
 /* Contact Section Styles */
 #contact {
@@ -322,6 +423,12 @@ a:hover::before {
   display: flex; 
   height: 50vh; 
   background-color: #f2e9eb; 
+  opacity: 0; /* Start hidden */
+  transition: opacity 1s ease-in-out; /* Smooth transition for opacity */
+}
+
+.fade-in-animation {
+  opacity: 1; /* Fade to visible */
 }
 
 .profile-container {
@@ -509,7 +616,7 @@ footer {
     transform: translateY(20px);
   }
   to {
-    opacity: 1;
+    opacity: 2;
     transform: translateY(0);
   }
 }

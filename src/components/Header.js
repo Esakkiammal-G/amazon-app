@@ -1,20 +1,51 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false); // State to manage the mobile menu
   const [isMobile, setIsMobile] = useState(false); // State to manage if it's mobile view
+  const [isScrolled, setIsScrolled] = useState(false); // State to manage the scroll effect
+  const [typedTitle, setTypedTitle] = useState(''); // State for typewriting effect
+  const fullTitle = "Portfolio"; // Full title to display
+  const titleRef = useRef(typedTitle); // Using a ref to store the current title
+
+  // Typewriting effect logic
+  useEffect(() => {
+    titleRef.current = ''; // Reset the ref value before starting
+
+    let index = 0;
+    const typingInterval = setInterval(() => {
+      if (index < fullTitle.length) {
+        titleRef.current += fullTitle[index]; // Append the current letter to ref
+        setTypedTitle(titleRef.current); // Update the state with the ref's value
+        index++;
+      } else {
+        clearInterval(typingInterval); // Stop typing once the full title is displayed
+      }
+    }, 150); // Speed of typing, 150ms per letter
+
+    return () => clearInterval(typingInterval); // Cleanup interval on unmount
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
 
   // Function to check window size and update mobile view
   const updateMobileView = () => {
     setIsMobile(window.innerWidth <= 768); // Set to true if screen width is <= 768px (mobile)
   };
 
+  // Function to handle scroll and update header style
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 50); // Set to true if scrolled more than 50px
+  };
+
   useEffect(() => {
     updateMobileView(); // Check on initial load
     window.addEventListener('resize', updateMobileView); // Add event listener to window resize
+    window.addEventListener('scroll', handleScroll); // Add scroll event listener
 
-    return () => window.removeEventListener('resize', updateMobileView); // Cleanup event listener on unmount
+    // Cleanup event listeners on unmount
+    return () => {
+      window.removeEventListener('resize', updateMobileView);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const toggleMenu = () => {
@@ -26,8 +57,8 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <h1>Portfolio</h1>
+    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+      <h1>{typedTitle}</h1> {/* Title with typewriting effect */}
 
       {/* Toggle button for mobile view */}
       {isMobile && (
